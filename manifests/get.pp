@@ -70,7 +70,7 @@ define rsync::get (
     $MyExcludes = "--exclude-from=${exclude_file_path}"
     file { $exclude_file_path:
       ensure => file,
-      content => inline_template("This file is being maintained by Puppet.\n# DO NOT EDIT\n<%= @excludes.join('\n') %>")
+      content => inline_template("# This file is being maintained by Puppet.\n# DO NOT EDIT\n<%= @excludes.join('\n') %>")
     }
     if $cron_run_interval == undef {
       File[$exclude_file_path] -> Exec["rsync ${name}"]
